@@ -1,13 +1,20 @@
 package mohamed.atef.mondiatask.repositories;
 
 import android.util.Log;
+import android.webkit.HttpAuthHandler;
+
+import org.apache.http.params.HttpParams;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.HttpCookie;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import mohamed.atef.mondiatask.AppUtils;
 
@@ -27,15 +34,15 @@ public class SearchRepository {
             urlConnection.setRequestProperty("Content-Type", "application/json");
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestProperty("X-MM-GATEWAY-KEY", "G2269608a-bf41-2dc7-cfea-856957fcab1e");
-            urlConnection.setRequestProperty("Authorization", "Bearer C0a45b941-b256-4e4e-9c57-a77100c3935f" );
+            urlConnection.setRequestProperty("Authorization", "Bearer Cf8dc6551-bce8-4ce3-a7f6-b362608167d2");
             OutputStreamWriter streamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
             streamWriter.write(jsonBody);
             streamWriter.flush();
 
-//            if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-//                Log.e("test", urlConnection.getResponseMessage());
-//                return null;
-//            } else {
+            if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                Log.e("test", urlConnection.getResponseMessage());
+                return null;
+            } else {
                 StringBuffer buffer = new StringBuffer();
                 if (inputStream == null) {
                     UsersDesires_JsonSTR = null;
@@ -54,7 +61,7 @@ public class SearchRepository {
                 UsersDesires_JsonSTR = buffer.toString();
                 Log.v("error:", "Articles String: " + UsersDesires_JsonSTR);
                 return null;
-//            }
+            }
         } catch (IOException e) {
             Log.e("error:", "Error here Exactly ", e);
             return null;

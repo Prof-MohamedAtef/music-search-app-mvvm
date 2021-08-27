@@ -1,7 +1,9 @@
 package mohamed.atef.mondiatask.views;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import mohamed.atef.mondiatask.AppUtils;
 import mohamed.atef.mondiatask.R;
 import mohamed.atef.mondiatask.WorkerThread.LoadImageAsyncTask;
 import mohamed.atef.mondiatask.models.SearchResults;
@@ -51,6 +55,18 @@ public class SearchMusicAdapter extends RecyclerView.Adapter<SearchMusicAdapter.
             holder.tvMainArtistVal.setText(searchResults.getArtistName());
             holder.tvItemTypeVal.setText(searchResults.getType());
             holder.tvSongTitle.setText(searchResults.getTitle());
+            SearchResults finalSearchResults = searchResults;
+            holder.layout.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(mContext, DetailActivity.class);
+                    Bundle bundle=new Bundle();
+                    bundle.putParcelable("DetailExtra", finalSearchResults);
+                    intent.putExtras(bundle);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                }
+            });
             LoadImageAsyncTask loadImageAsyncTask=new LoadImageAsyncTask("http:"+searchResults.getImage(),holder.poster_image);
             loadImageAsyncTask.execute();
         }
@@ -99,6 +115,7 @@ public class SearchMusicAdapter extends RecyclerView.Adapter<SearchMusicAdapter.
         protected TextView tvSongTitle;
         protected TextView tvItemTypeVal;
         protected TextView tvMainArtistVal;
+        protected ConstraintLayout layout;
 
         public ViewHolder(@NonNull @NotNull View itemView) {
             super(itemView);
@@ -106,6 +123,7 @@ public class SearchMusicAdapter extends RecyclerView.Adapter<SearchMusicAdapter.
             this.tvItemTypeVal=(TextView)itemView.findViewById(R.id.tvItemTypeVal);
             this.tvMainArtistVal=(TextView)itemView.findViewById(R.id.tvMainArtistVal);
             this.poster_image=(ImageView)itemView.findViewById(R.id.poster_image);
+            this.layout=(ConstraintLayout) itemView.findViewById(R.id.layout);
         }
     }
 }
