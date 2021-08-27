@@ -35,6 +35,7 @@ public class SearchRepository {
             urlConnection.setRequestProperty("Accept", "application/json");
             urlConnection.setRequestProperty("X-MM-GATEWAY-KEY", "G2269608a-bf41-2dc7-cfea-856957fcab1e");
             urlConnection.setRequestProperty("Authorization", "Bearer Cf8dc6551-bce8-4ce3-a7f6-b362608167d2");
+
             OutputStreamWriter streamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
             streamWriter.write(jsonBody);
             streamWriter.flush();
