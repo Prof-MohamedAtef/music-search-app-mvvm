@@ -40,10 +40,10 @@ public class SearchRepository {
             streamWriter.write(jsonBody);
             streamWriter.flush();
 
-            if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                Log.e("test", urlConnection.getResponseMessage());
-                return null;
-            } else {
+//            if (urlConnection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+//                Log.e("test", urlConnection.getResponseMessage());
+//                return null;
+//            } else {
                 StringBuffer buffer = new StringBuffer();
                 if (inputStream == null) {
                     UsersDesires_JsonSTR = null;
@@ -62,7 +62,7 @@ public class SearchRepository {
                 UsersDesires_JsonSTR = buffer.toString();
                 Log.v("error:", "Articles String: " + UsersDesires_JsonSTR);
                 return null;
-            }
+//            }
         } catch (IOException e) {
             Log.e("error:", "Error here Exactly ", e);
             return null;
