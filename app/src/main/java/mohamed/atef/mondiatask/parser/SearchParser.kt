@@ -1,15 +1,20 @@
 package mohamed.atef.mondiatask.parser
 
+import mohamed.atef.mondiatask.models.ClientTokenModel
 import mohamed.atef.mondiatask.models.SearchResults
 import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 class SearchParser() {
+    private lateinit var TokenType: String
+    private lateinit var AccessToken: String
     private lateinit var ImageUrl_STR: String
     private lateinit var MainArtist_STR: String
     private lateinit var SONG_TITLE_STR: String
     private lateinit var ITEM_TYPE_STR: String
 
-    fun parse(jsonResponse: String): ArrayList<SearchResults>?{
+    fun parseQueryResults(jsonResponse: String): ArrayList<SearchResults>?{
         ImageUrl_STR=""
         MainArtist_STR=""
         SONG_TITLE_STR=""
@@ -52,5 +57,20 @@ class SearchParser() {
             dataArrayList.add(searchResults)
         }
         return dataArrayList
+    }
+
+    fun parseClientToken(jsonResponse: String): ClientTokenModel?{
+        try {
+            val jsonObject = JSONObject(jsonResponse)
+            if (jsonObject!!.has("accessToken")){
+                AccessToken=jsonObject.getString("accessToken")
+            }
+            if (jsonObject!!.has("tokenType")){
+                TokenType=jsonObject.getString("tokenType")
+            }
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+        return ClientTokenModel(null,AccessToken,TokenType)
     }
 }

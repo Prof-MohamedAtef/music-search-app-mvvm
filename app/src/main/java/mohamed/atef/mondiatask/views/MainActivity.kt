@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import mohamed.atef.mondiatask.AppUtils
 import mohamed.atef.mondiatask.R
+import mohamed.atef.mondiatask.models.ClientTokenModel
 import mohamed.atef.mondiatask.parser.SearchParser
 import mohamed.atef.mondiatask.viewModels.SearchViewModel
 import mohamed.atef.mondiatask.viewModels.SearchViewModelFactory
 
 
 class MainActivity : AppCompatActivity()  {
+    private var clientObject: ClientTokenModel?=null
     private lateinit var adapter: SearchMusicAdapter
     private lateinit var linearLayoutManager: LinearLayoutManager
     private lateinit var recyclerView: RecyclerView
@@ -29,6 +31,19 @@ class MainActivity : AppCompatActivity()  {
         searchParser=SearchParser()
         initViewModel()
         initViews()
+        getClientToken()
+    }
+
+    private fun getClientToken() {
+        Log.i("MainActivity", "Called ViewModel")
+        viewModel.callClientToken()
+        viewModel.clientToken.observe(this, Observer { tokenResponse->
+            if (tokenResponse!=null){
+                clientObject= searchParser.parseClientToken(tokenResponse)
+                Log.e("my_Token:",clientObject!!.tokenType)
+                searchRequest("oo", clientObject!!)
+            }
+        })
     }
 
     private fun initViewModel() {
@@ -40,16 +55,16 @@ class MainActivity : AppCompatActivity()  {
     private fun initViews() {
         linearLayoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = linearLayoutManager
-        adapter = SearchMusicAdapter(applicationContext,searchParser.parse(AppUtils.JsonResponse))
+        adapter = SearchMusicAdapter(applicationContext,searchParser.parseQueryResults(AppUtils.JsonResponse))
         populateRecycler()
     }
 
-    private fun searchRequest(newText: String?) {
-        Log.i("GameFragment", "Called ViewModelProvider.get")
-        viewModel.searchApiCall(newText)
+    private fun searchRequest(newText: String?, clientObject: ClientTokenModel) {
+        Log.i("MainActivity", "Called ViewModel")
+        viewModel.searchApiCall(newText,clientObject)
         viewModel.queryResult.observe(this, Observer { queryResponse ->
             if (queryResponse!=null){
-                adapter = SearchMusicAdapter(applicationContext,searchParser.parse(queryResponse))
+                adapter = SearchMusicAdapter(applicationContext,searchParser.parseQueryResults(queryResponse))
                 populateRecycler()
             }
         })
@@ -70,7 +85,7 @@ class MainActivity : AppCompatActivity()  {
                 return false
             }
             override fun onQueryTextSubmit(query: String?): Boolean {
-                searchRequest(query)
+                searchRequest(query, clientObject!!)
                 return false
             }
         })

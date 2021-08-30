@@ -1,5 +1,7 @@
 package mohamed.atef.mondiatask
 
+import mohamed.atef.mondiatask.models.ClientTokenModel
+
 class AppUtils {
     companion object{
         val JsonResponse="[{\n" +
@@ -88,8 +90,11 @@ class AppUtils {
                 "    }\n" +
                 "  }]"
         val clientToken="C90f5aafb-0dae-4054-9e5f-36bf398c4e56"
-        val baseUrl="http://staging-gateway.mondiamedia.com/v2/api"
-        var  searchEnd=baseUrl+"/sayt/flat"
+        val baseUrl="http://staging-gateway.mondiamedia.com"
+        var v2="/v2/api"
+        var v1="/v0/api"
+        var  searchEnd=baseUrl+v2+"/sayt/flat"
+        val clientTokenEnd= baseUrl+v1+"/gateway/token/client"
         var includes=true;
         var limit=20
     }

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MondiaTask</string>
     <string name="search_title">Search</string>
+    <string name="gateway_key">G2269608a-bf41-2dc7-cfea-856957fcab1e</string>
 </resources>

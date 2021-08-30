@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import mohamed.atef.mondiatask.models.ClientTokenModel;
 import mohamed.atef.mondiatask.repositories.SearchRepository;
 
 public class SearchAsyncTask extends AsyncTask<Void, Void, String> {
@@ -11,18 +12,20 @@ public class SearchAsyncTask extends AsyncTask<Void, Void, String> {
     private final String Query;
     private final String mJsonBody;
     private final OnQueryResponseChange mListener;
+    private final ClientTokenModel clienTokenModel;
     SearchRepository searchRepository;
 
-    public SearchAsyncTask(OnQueryResponseChange onQueryResponseChange, Context context, String query, String jsonBody){
+    public SearchAsyncTask(OnQueryResponseChange onQueryResponseChange, Context context, String query, String jsonBody, ClientTokenModel clientTokenModel){
         this.mContext=context;
         this.Query=query;
         this.mJsonBody=jsonBody;
+        this.clienTokenModel=clientTokenModel;
         searchRepository=new SearchRepository();
         this.mListener=onQueryResponseChange;
     }
     @Override
     protected String doInBackground(Void... voids) {
-        return searchRepository.makeSearchCall(mJsonBody);
+        return searchRepository.makeSearchCall(mJsonBody, mContext, clienTokenModel);
     }
 
     @Override
@@ -38,6 +41,6 @@ public class SearchAsyncTask extends AsyncTask<Void, Void, String> {
     }
 
     public interface OnQueryResponseChange{
-        public void OnQueryResponseChanged(String responseChange);
+        void OnQueryResponseChanged(String responseChange);
     }
 }
