@@ -89,7 +89,6 @@ class AppUtils {
                 "      \"template\": \"//staging-placebo.mondiamedia.com/api/fetch/image/article/{width}x{height}/6176772.{suffix}\"\n" +
                 "    }\n" +
                 "  }]"
-        val clientToken="C90f5aafb-0dae-4054-9e5f-36bf398c4e56"
         val baseUrl="http://staging-gateway.mondiamedia.com"
         var v2="/v2/api"
         var v1="/v0/api"
