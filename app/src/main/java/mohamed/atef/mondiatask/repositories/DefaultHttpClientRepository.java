@@ -64,7 +64,7 @@ public class DefaultHttpClientRepository {
         try{
             HttpPost httpPost=new HttpPost((
                     AppUtils.Companion.getSearchEnd()));
-            String token=clientTokenModel.getTokenType()+clientTokenModel.getAccessToken();
+            String token=clientTokenModel.getTokenType()+" "+clientTokenModel.getAccessToken();
             httpPost.addHeader("Accept","application/json");
             httpPost.addHeader("X-MM-GATEWAY-KEY", mContext.getString(R.string.gateway_key));
             httpPost.addHeader("Authorization", token);
