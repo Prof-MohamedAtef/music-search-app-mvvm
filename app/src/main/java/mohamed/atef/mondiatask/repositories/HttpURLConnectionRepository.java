@@ -36,8 +36,6 @@ public class HttpURLConnectionRepository {
             urlConnection.setRequestProperty("X-MM-GATEWAY-KEY", mContext.getString(R.string.gateway_key));
             urlConnection.setRequestProperty("Authorization", token);
 
-//            Map<String, List<String>> authorization = urlConnection.getHeaderFields();
-
             Map responseMap = urlConnection.getHeaderFields();
             for (Iterator iterator = responseMap.keySet().iterator(); iterator.hasNext();) {
                 String key = (String) iterator.next();

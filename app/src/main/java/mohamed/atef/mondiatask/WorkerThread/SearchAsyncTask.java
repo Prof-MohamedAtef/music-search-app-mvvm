@@ -32,8 +32,8 @@ public class SearchAsyncTask extends AsyncTask<Void, Void, String> {
         // please note: changing from both of repositories to change the used mechanism in your call
         // 1. HttpURLConnection 2. DefaultHttpClient
          */
-//        return httpURLConnectionRepository.makeSearchCall(mJsonBody, mContext, clienTokenModel);
-        return defaultHttpClientRepository.makeSearchCall(mJsonBody,mContext,clienTokenModel);
+        return httpURLConnectionRepository.makeSearchCall(mJsonBody, mContext, clienTokenModel);
+//        return defaultHttpClientRepository.makeSearchCall(mJsonBody,mContext,clienTokenModel);
     }
 
     @Override
