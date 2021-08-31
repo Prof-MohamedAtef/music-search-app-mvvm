@@ -6,17 +6,15 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import org.jetbrains.annotations.NotNull;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import mohamed.atef.mondiatask.WorkerThread.ClientTokenAsyncTask;
 import mohamed.atef.mondiatask.WorkerThread.SearchAsyncTask;
 import mohamed.atef.mondiatask.models.ClientTokenModel;
-import mohamed.atef.mondiatask.repositories.SearchRepository;
+import mohamed.atef.mondiatask.repositories.HttpURLConnectionRepository;
 
 public class SearchViewModel extends AndroidViewModel implements SearchAsyncTask.OnQueryResponseChange,
         ClientTokenAsyncTask.OnTokenReturn {
-    SearchRepository searchRepository;
+    HttpURLConnectionRepository httpURLConnectionRepository;
     private String includes="true";
     private String limit="20";
     private final MutableLiveData<String> queryResponseLiveData;
@@ -24,7 +22,7 @@ public class SearchViewModel extends AndroidViewModel implements SearchAsyncTask
 
     public SearchViewModel(@NonNull @NotNull Application application) {
         super(application);
-        new SearchRepository();
+        new HttpURLConnectionRepository();
         queryResponseLiveData = new MutableLiveData<>();
         clientTokenLiveData= new MutableLiveData<>();
     }

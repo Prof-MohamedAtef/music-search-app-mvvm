@@ -10,12 +10,15 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
-import mohamed.atef.mondiatask.AppUtils;
+import mohamed.atef.mondiatask.utils.AppUtils;
 import mohamed.atef.mondiatask.R;
 import mohamed.atef.mondiatask.models.ClientTokenModel;
 
-public class SearchRepository {
+public class HttpURLConnectionRepository {
     InputStream inputStream = null;
     private BufferedReader reader;
 
@@ -28,10 +31,27 @@ public class SearchRepository {
             urlConnection.setDoInput(true);
             urlConnection.setDoOutput(true);
             urlConnection.setRequestMethod("GET");
-            urlConnection.addRequestProperty("Authorization", clientTokenModel.getTokenType() + " " + clientTokenModel.getAccessToken());
-            urlConnection.addRequestProperty("Content-Type", "application/json");
-            urlConnection.addRequestProperty("Accept", "application/json");
-            urlConnection.addRequestProperty("X-MM-GATEWAY-KEY", mContext.getString(R.string.gateway_key));
+            String token=clientTokenModel.getTokenType()+" "+clientTokenModel.getAccessToken();
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setRequestProperty("X-MM-GATEWAY-KEY", mContext.getString(R.string.gateway_key));
+            urlConnection.setRequestProperty("Authorization", token);
+
+//            Map<String, List<String>> authorization = urlConnection.getHeaderFields();
+
+            Map responseMap = urlConnection.getHeaderFields();
+            for (Iterator iterator = responseMap.keySet().iterator(); iterator.hasNext();) {
+                String key = (String) iterator.next();
+                System.out.println(key + " = ");
+
+                List values = (List) responseMap.get(key);
+                for (int i = 0; i < values.size(); i++) {
+                    Object o = values.get(i);
+                    System.out.println(o + ", ");
+                }
+            }
+
+            System.out.println(urlConnection.getResponseCode());
+            System.out.println(urlConnection.getResponseMessage());
 
             try {
                 OutputStreamWriter streamWriter = new OutputStreamWriter(urlConnection.getOutputStream());
@@ -83,7 +103,6 @@ public class SearchRepository {
             }
         }
     }
-
 
     public String returnClientToken(Context mContext) {
         String UsersDesires_JsonSTR = null;

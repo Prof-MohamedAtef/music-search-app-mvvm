@@ -1,6 +1,4 @@
-package mohamed.atef.mondiatask
-
-import mohamed.atef.mondiatask.models.ClientTokenModel
+package mohamed.atef.mondiatask.utils
 
 class AppUtils {
     companion object{
@@ -92,8 +90,8 @@ class AppUtils {
         val baseUrl="http://staging-gateway.mondiamedia.com"
         var v2="/v2/api"
         var v1="/v0/api"
-        var  searchEnd=baseUrl+v2+"/sayt/flat"
-        val clientTokenEnd= baseUrl+v1+"/gateway/token/client"
+        var  searchEnd= baseUrl + v2 +"/sayt/flat"
+        val clientTokenEnd= baseUrl + v1 +"/gateway/token/client"
         var includes=true;
         var limit=20
     }

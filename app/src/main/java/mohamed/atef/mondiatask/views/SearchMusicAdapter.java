@@ -2,7 +2,6 @@ package mohamed.atef.mondiatask.views;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +20,6 @@ import org.jetbrains.annotations.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import mohamed.atef.mondiatask.AppUtils;
 import mohamed.atef.mondiatask.R;
 import mohamed.atef.mondiatask.WorkerThread.LoadImageAsyncTask;
 import mohamed.atef.mondiatask.models.SearchResults;

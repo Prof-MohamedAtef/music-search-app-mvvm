@@ -5,7 +5,8 @@ import android.os.AsyncTask;
 import android.widget.Toast;
 
 import mohamed.atef.mondiatask.models.ClientTokenModel;
-import mohamed.atef.mondiatask.repositories.SearchRepository;
+import mohamed.atef.mondiatask.repositories.DefaultHttpClientRepository;
+import mohamed.atef.mondiatask.repositories.HttpURLConnectionRepository;
 
 public class SearchAsyncTask extends AsyncTask<Void, Void, String> {
     private final Context mContext;
@@ -13,19 +14,26 @@ public class SearchAsyncTask extends AsyncTask<Void, Void, String> {
     private final String mJsonBody;
     private final OnQueryResponseChange mListener;
     private final ClientTokenModel clienTokenModel;
-    SearchRepository searchRepository;
+    HttpURLConnectionRepository httpURLConnectionRepository;
+    DefaultHttpClientRepository defaultHttpClientRepository;
 
     public SearchAsyncTask(OnQueryResponseChange onQueryResponseChange, Context context, String query, String jsonBody, ClientTokenModel clientTokenModel){
         this.mContext=context;
         this.Query=query;
         this.mJsonBody=jsonBody;
         this.clienTokenModel=clientTokenModel;
-        searchRepository=new SearchRepository();
+        httpURLConnectionRepository =new HttpURLConnectionRepository();
+        defaultHttpClientRepository =new DefaultHttpClientRepository();
         this.mListener=onQueryResponseChange;
     }
     @Override
     protected String doInBackground(Void... voids) {
-        return searchRepository.makeSearchCall(mJsonBody, mContext, clienTokenModel);
+        /*
+        // please note: changing from both of repositories to change the used mechanism in your call
+        // 1. HttpURLConnection 2. DefaultHttpClient
+         */
+//        return httpURLConnectionRepository.makeSearchCall(mJsonBody, mContext, clienTokenModel);
+        return defaultHttpClientRepository.makeSearchCall(mJsonBody,mContext,clienTokenModel);
     }
 
     @Override

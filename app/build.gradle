@@ -6,7 +6,7 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
-
+    useLibrary  'org.apache.http.legacy'
     defaultConfig {
         applicationId "mohamed.atef.mondiatask"
         minSdkVersion 16

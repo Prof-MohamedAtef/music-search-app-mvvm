@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import mohamed.atef.mondiatask.AppUtils
+import mohamed.atef.mondiatask.utils.AppUtils
 import mohamed.atef.mondiatask.R
 import mohamed.atef.mondiatask.models.ClientTokenModel
 import mohamed.atef.mondiatask.parser.SearchParser
